@@ -1,0 +1,88 @@
+#include <iostream>
+using namespace std;
+
+class Node{
+    
+    public:
+      int data;
+      Node *next;
+       
+       Node(){
+        this->data=0;
+        this->next =NULL;
+       }
+
+       Node(int data){
+         this->data=data;
+         this->next=NULL;
+       }
+
+       
+};
+
+void printList(Node* head)
+       {
+          //  Node* temp = head;
+           
+            while(head !=NULL){
+                 cout<<head->data<<" ";
+                  head = head->next;
+            }
+       }
+     
+ void inserAtHead(Node*&head,Node*&tail,int data){
+           
+           if(head==NULL){
+               Node* newNode = new Node(data);
+               head = newNode;
+               tail = newNode;
+               return ;
+           }
+           
+           // create new node
+           Node* newNode = new Node(data);
+
+           // connect to the old node;
+            newNode->next=head;
+
+            // now head to be pont at first node 
+            head=newNode;
+            
+      }
+
+  void insertAtTail(Node*&head,Node*&tail,int data){
+         
+          if(head==NULL){
+               Node* newNode = new Node(data);
+               head = newNode;
+               tail = newNode;
+               return ;
+           }
+           
+           // create new node
+           Node* newNode = new Node(data);
+
+           // connect to the old node;
+            tail->next=newNode;
+
+            // now head to be pont at first node 
+            tail=newNode;
+
+  }
+
+int main() {
+       
+       Node* head = NULL;
+       Node*tail = NULL;
+       inserAtHead(head,tail,20);
+       inserAtHead(head,tail,30);
+       inserAtHead(head,tail,40);
+       inserAtHead(head,tail,50);
+
+       insertAtTail(head,tail,5);
+       insertAtTail(head,tail,3);
+
+       printList(head);
+        
+  return 0;
+}
