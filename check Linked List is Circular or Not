@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+   public:
+              int data;
+              Node* next;
+  
+
+
+              Node(){
+                this->data=0;
+                this->next=NULL;
+              
+           
+              }
+
+
+               Node(int data){
+                this->data=data;
+                this->next=NULL;
+              
+           
+              }
+};
+
+
+bool checkLLCircular(Node* &head){
+    
+    if(head==NULL){
+    
+       return false;
+
+    }
+    if(head->next==NULL){
+        return false;
+    }
+     
+    if(head->next==head){
+        return true;
+    }
+
+    Node* temp = head->next;
+     
+     while(head!=temp)
+     {  
+      temp= temp->next;
+      if(temp==NULL){
+        return false;
+      }
+     }
+    
+ return true;
+
+
+}
+
+int main() {
+         
+       Node* first = new Node(10);
+       Node* second = new Node(20);
+       Node* third = new Node(30);
+       Node* fourth = new Node(40);
+       Node* fifth  = new Node(50);
+       
+       Node* head = first;
+       
+
+       first->next = second;
+       second->next=third;
+       third->next=fourth;
+       fourth->next= fifth;
+       fifth->next = first;
+
+       // check LL is circular or not
+        cout<<"LL is circular: "<<checkLLCircular(head);
+
+
+  return 0;
+}
