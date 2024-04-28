@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+
+class Node{
+     public:
+     int data;
+     Node* next;
+
+     Node(int data){
+      this->data=data;
+      this->next = NULL;
+     }
+};
+
+bool checkForLoop(Node* &head){
+
+  // check LL is empty or not
+  if(head==NULL){
+    return false;
+  }
+
+ Node* fast = head;
+ Node * slow = head;
+
+ while(fast!=NULL){
+   fast= fast->next;
+    if(fast!= NULL){
+      fast = fast->next;
+      slow = slow->next;
+    }
+   
+   // if slow == fast then is mean  loop is present 
+    if(slow==fast){
+      return true;
+    }
+
+ }
+
+ // fast == null tabhi loop se bahar aaye hai
+  return false ;
+
+}
+
+int main() {
+      
+      Node* first = new Node(10);
+      Node* second = new Node(20);
+      Node* third= new Node(30);
+      Node* fourth = new Node(40);
+      Node* fifth = new Node(50);
+      Node* sixth = new Node(60);
+      Node* Seventh = new Node(70);
+      Node* Eighth= new Node(80);
+      Node* Ninth = new Node(90);
+
+      Node* head = first;
+
+      first->next=second;
+      second->next=third;
+      third->next= fourth;
+      fourth->next = fifth;
+      fifth->next=sixth;
+      sixth->next=Seventh;
+      Seventh->next = Eighth;
+      Eighth->next = Ninth;
+      Ninth->next = fifth;
+      
+
+   
+   cout<<"check loop is present : "<<checkForLoop(head)<<endl;
+
+
+
+  return 0;
+}
