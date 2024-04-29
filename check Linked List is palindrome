@@ -1,0 +1,109 @@
+#include <iostream>
+using namespace std;
+
+class Node{
+     
+     public:
+        int data;
+        Node* next;
+
+        Node(int data){
+           this->next = NULL;
+           this->data = data;
+        }
+};
+
+Node * reverseLL(Node*& head){
+    
+     Node*prev = NULL;
+     Node* curr =head;
+     Node* next =  head->next;
+
+     while(curr!=NULL){
+      
+      next = curr->next;
+      curr->next = prev;
+      prev = curr;
+      curr = next;
+
+     }
+
+     return prev;
+
+}
+
+
+ // check the palindrome or not 
+ bool checkPalindrome(Node * &head){
+
+     if (head==NULL){
+      return true;
+     }
+
+     if(head->next = NULL){
+      return true;
+     }
+    
+      // step 1 :--> find the middle of LL
+      Node* slow = head;
+      Node * fast = head;
+
+       while(fast!=NULL){
+           fast = fast->next;
+           if(fast!=NULL){
+              fast=fast->next;
+              slow = slow->next;
+           }
+       }
+       
+       // stemp 2 :-->reverse the LL after  middle Node
+        Node * reverseLLkaHead =  reverseLL(slow->next);
+         
+         slow ->next = reverseLLkaHead;
+       
+       // step 3 : --> compare the linked list after middle node
+       Node * temp1 = head;
+       Node * temp2 = reverseLLkaHead;
+       while(temp2!=NULL){
+           
+           if(temp1->data == temp2->data){
+            temp1 = temp1->next;
+            temp2 = temp2->next;
+           }
+           else{
+             return  false;
+           }
+       }
+       
+       return true;
+ }
+
+
+int main() {
+   
+  
+  Node* first = new Node(30);
+  Node* second = new Node(20);
+  Node* third = new Node(10);
+  Node* fourth = new Node(20);
+  Node* fifth = new Node(320);
+
+  Node* head = NULL;
+
+  first->next = second;
+  second->next = third;
+  third->next = fourth;
+  fourth->next = fifth;
+
+    
+    bool isPalindrome = checkPalindrome(head);
+
+    if(isPalindrome){
+       cout<<"This is palindrome Linked List "<<endl;
+    }
+    else{
+      cout<<"This is not  palindrome Linked List "<<endl;
+    }
+
+  return 0;
+}
